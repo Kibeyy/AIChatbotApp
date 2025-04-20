@@ -56,7 +56,7 @@ fun ProfileCard(){
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .clip(CircleShape)
+                        .clip(RoundedCornerShape(20))
                         .size(120.dp)
                 )
                 Spacer(modifier = Modifier.height(40.dp))
