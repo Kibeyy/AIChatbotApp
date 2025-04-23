@@ -11,7 +11,8 @@ This project is a simple Instagram-style UI built using **Jetpack Compose**.
 
 ## 📱 Preview
 
-*[Add screenshots here if you'd like]*
+![image](https://github.com/user-attachments/assets/8c9552a1-5770-466f-bb74-74c79a1774ed)
+
 
 ## 🚀 Getting Started
 
