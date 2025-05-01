@@ -34,6 +34,8 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -52,8 +54,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            DrawerAppTheme {
-                Home()
+            val isDarkThemeOn = remember { mutableStateOf(false) }
+            DrawerAppTheme(darkTheme = isDarkThemeOn.value) {
+
+                Home(
+                    isDarkThemeOn = isDarkThemeOn.value,
+                    onToggleTheme = {isDarkThemeOn.value = !isDarkThemeOn.value}
+                )
 
                 }
 
@@ -64,7 +71,7 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun Home(){
+fun Home(isDarkThemeOn:Boolean = false,onToggleTheme:() -> Unit){
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
@@ -122,7 +129,9 @@ fun Home(){
                 title = { Text(text = "DRAWER_APP", fontWeight = FontWeight.Bold, letterSpacing = 2.sp) },
                 actions = {
                     IconButton(
-                        onClick = {}
+                        onClick = {
+                            onToggleTheme()
+                        }
                     ) {
                         Icon(Icons.Default.DarkMode, contentDescription = null)
                     }
