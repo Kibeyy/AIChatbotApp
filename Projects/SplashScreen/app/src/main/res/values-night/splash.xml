@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="App.Splash.Theme" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#3F51B5</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/chat</item>
+    </style>
+</resources>
