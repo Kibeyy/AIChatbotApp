@@ -33,7 +33,7 @@ fun NormalWeatherItem(
             modifier = Modifier
                 .padding(20.dp)
         ){
-            Text(text = value, fontSize = 30.sp )
+            Text(text = value, fontSize = 30.sp, fontWeight = FontWeight.Bold )
             Spacer(Modifier.height(10.dp))
             Text(text = key, fontWeight = FontWeight.Bold)
 
