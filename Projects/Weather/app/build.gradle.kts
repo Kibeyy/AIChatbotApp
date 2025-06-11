@@ -77,4 +77,6 @@ dependencies {
     kapt (libs.hilt.compiler)
     //coil
     implementation("io.coil-kt:coil-compose:2.6.0")
+    //splashscreen
+    implementation("androidx.core:core-splashscreen:1.0.1")
 }
