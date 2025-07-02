@@ -84,6 +84,7 @@ fun Chat_screen( viewModel: ChatViewModel){
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
+                    .padding(horizontal = 10.dp)
                     .fillMaxWidth()
             ) {
                 OutlinedTextField(
