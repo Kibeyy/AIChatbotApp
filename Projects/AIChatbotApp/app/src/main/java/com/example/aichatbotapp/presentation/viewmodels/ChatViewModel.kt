@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.aichatbotapp.constants.Constants
 import com.example.aichatbotapp.domain.model.MessageModel
 import com.google.ai.client.generativeai.GenerativeModel
+import com.google.ai.client.generativeai.type.content
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -30,7 +31,10 @@ class ChatViewModel @Inject constructor() : ViewModel() {
                 // Add user message first
                 messageList.add(MessageModel(prompt, "user"))
 
-                val chat = generativeModel.startChat()
+                val chat = generativeModel.startChat(
+                    history = messageList.map {
+                        content(it.role){ text(it.message) } }.toList(),
+                )
                 val response = chat.sendMessage(prompt)
 
                 // Safe null checking

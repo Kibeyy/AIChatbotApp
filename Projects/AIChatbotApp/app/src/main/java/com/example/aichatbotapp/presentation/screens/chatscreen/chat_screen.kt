@@ -28,6 +28,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -38,6 +40,8 @@ import com.example.aichatbotapp.presentation.viewmodels.ChatViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Chat_screen( viewModel: ChatViewModel){
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusManager = LocalFocusManager.current
     val prompt = remember {
         mutableStateOf("")
     }
@@ -67,6 +71,7 @@ fun Chat_screen( viewModel: ChatViewModel){
         ) {
             //list of messages
             LazyColumn(
+                reverseLayout = true,
 
                 modifier = Modifier
                     .weight(1f)
@@ -74,7 +79,7 @@ fun Chat_screen( viewModel: ChatViewModel){
                     .padding(8.dp)
 
             ) {
-                items(viewModel.messageList){message ->
+                items(viewModel.messageList.reversed()){message ->
                     MessageItem(message)
 
                 }
@@ -98,6 +103,7 @@ fun Chat_screen( viewModel: ChatViewModel){
                 Button(
                     onClick = {
                         onPromptSend()
+                        keyboardController?.hide()
                     },
                     shape = RoundedCornerShape(5.dp)
                 ) {
