@@ -11,37 +11,24 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.aichatbotapp.ui.theme.AIChatbotAppTheme
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.aichatbotapp.presentation.screens.chatscreen.Chat_screen
+import com.example.aichatbotapp.presentation.theme.AIChatbotAppTheme
+import com.example.aichatbotapp.presentation.viewmodels.ChatViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             AIChatbotAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                val viewModel: ChatViewModel = hiltViewModel()
+                Chat_screen(viewModel = viewModel)
+
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    AIChatbotAppTheme {
-        Greeting("Android")
-    }
-}
