@@ -50,11 +50,13 @@ class ChatViewModel @Inject constructor() : ViewModel() {
                     messageList.removeLast()
                     messageList.add(MessageModel(responseText, "model"))
                 } else {
+                    messageList.removeLast()
                     Log.w("Testing", "Response text is null")
                     messageList.add(MessageModel("Sorry, I couldn't generate a response.", "model"))
                 }
 
             } catch (e: Exception) {
+                messageList.removeLast()
                 Log.e("Errors", "Error sending prompt: ${e.message}", e)
                 messageList.add(MessageModel("Error: ${e.message}", "model"))
             }

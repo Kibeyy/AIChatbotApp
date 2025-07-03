@@ -1,12 +1,16 @@
 package com.example.aichatbotapp.presentation.screens.chatscreen
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -30,12 +34,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.aichatbotapp.domain.model.MessageModel
 import com.example.aichatbotapp.presentation.viewmodels.ChatViewModel
+import com.example.aichatbotapp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -45,6 +51,7 @@ fun Chat_screen( viewModel: ChatViewModel){
     val prompt = remember {
         mutableStateOf("")
     }
+    @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
     fun onPromptSend(){
         //send message to ai here
         viewModel.sendPrompt(prompt.value)
@@ -69,21 +76,47 @@ fun Chat_screen( viewModel: ChatViewModel){
 
 
         ) {
-            //list of messages
-            LazyColumn(
-                reverseLayout = true,
+            if(viewModel.messageList.isNotEmpty()){
+                //list of messages
+                LazyColumn(
+                    reverseLayout = true,
 
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth()
-                    .padding(8.dp)
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth()
+                        .padding(8.dp)
 
-            ) {
-                items(viewModel.messageList.reversed()){message ->
-                    MessageItem(message)
+                ) {
+                    items(viewModel.messageList.reversed()){message ->
+                        MessageItem(message)
+
+                    }
 
                 }
+            }else{
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.baseline_question_answer_24),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(100.dp)
 
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Text(
+                        text = "Ask me anything",
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+
+                    )
+                }
+                
             }
             //input field for user
             Row(
@@ -102,8 +135,10 @@ fun Chat_screen( viewModel: ChatViewModel){
                 )
                 Button(
                     onClick = {
-                        onPromptSend()
-                        //keyboardController?.hide()
+                        if (prompt.value.isNotEmpty()){
+                            onPromptSend()
+                        }
+
                     },
                     shape = RoundedCornerShape(5.dp)
                 ) {
