@@ -1,6 +1,8 @@
 package com.example.aichatbotapp.presentation.viewmodels
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,13 +25,16 @@ class ChatViewModel @Inject constructor() : ViewModel() {
         apiKey = Constants.apiKey
     )
 
+    @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
     fun sendPrompt(prompt: String) {
         viewModelScope.launch {
             try {
                 Log.i("Testing", "Sending prompt: $prompt")
 
-                // Add user message first
+                // Add user message to list first
                 messageList.add(MessageModel(prompt, "user"))
+                //loading text before actual message is replied by model
+                messageList.add(MessageModel("Typing...", "model"))
 
                 val chat = generativeModel.startChat(
                     history = messageList.map {
@@ -39,8 +44,10 @@ class ChatViewModel @Inject constructor() : ViewModel() {
 
                 // Safe null checking
                 val responseText = response.text
+
                 if (responseText != null) {
                     Log.i("Testing", "Response: $responseText")
+                    messageList.removeLast()
                     messageList.add(MessageModel(responseText, "model"))
                 } else {
                     Log.w("Testing", "Response text is null")

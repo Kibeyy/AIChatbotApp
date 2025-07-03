@@ -103,7 +103,7 @@ fun Chat_screen( viewModel: ChatViewModel){
                 Button(
                     onClick = {
                         onPromptSend()
-                        keyboardController?.hide()
+                        //keyboardController?.hide()
                     },
                     shape = RoundedCornerShape(5.dp)
                 ) {
