@@ -98,21 +98,23 @@ fun Bottom_Input(prompt:String,onPromptChange:(String)->Unit,onSend:()->Unit){
                 }
 
                 //send button
-                IconButton(
-                    onClick = {
-                        //send_button
-                        onSend()
+               if(prompt.isNotEmpty()){
+                   IconButton(
+                       onClick = {
+                           //send_button
+                           onSend()
 
-                    }
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Send,
-                        contentDescription = "send_button",
-                        modifier = Modifier
-                            .height(25.dp)
-                        //.background(Color.LightGray)
-                    )
-                }
+                       }
+                   ) {
+                       Icon(
+                           imageVector = Icons.Default.Send,
+                           contentDescription = "send_button",
+                           modifier = Modifier
+                               .height(25.dp)
+                           //.background(Color.LightGray)
+                       )
+                   }
+               }
 
 
             }
