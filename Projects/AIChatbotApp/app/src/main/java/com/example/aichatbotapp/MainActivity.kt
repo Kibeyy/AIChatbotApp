@@ -13,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.aichatbotapp.presentation.screens.chatscreen.Chat_screen
+import com.example.aichatbotapp.presentation.screens.chatscreen.Test
+import com.example.aichatbotapp.presentation.screens.screen_components.Bottom_Input
 import com.example.aichatbotapp.presentation.theme.AIChatbotAppTheme
 import com.example.aichatbotapp.presentation.viewmodels.ChatViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,6 +28,7 @@ class MainActivity : ComponentActivity() {
             AIChatbotAppTheme {
                 val viewModel: ChatViewModel = hiltViewModel()
                 Chat_screen(viewModel = viewModel)
+               // Bottom_Input()
 
             }
         }

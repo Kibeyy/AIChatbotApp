@@ -75,7 +75,10 @@ dependencies {
     // Navigation with Compose
     implementation(libs.androidx.navigation.compose)
     //gemini
-    implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
+    implementation(libs.generativeai)
+
+    // Material Icons Extended
+    implementation(libs.androidx.material.icons.extended)
 
 
 

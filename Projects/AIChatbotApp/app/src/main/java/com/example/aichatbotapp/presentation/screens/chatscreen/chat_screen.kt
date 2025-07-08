@@ -15,7 +15,10 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Panorama
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -23,6 +26,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -42,6 +46,7 @@ import androidx.compose.ui.unit.sp
 import com.example.aichatbotapp.domain.model.MessageModel
 import com.example.aichatbotapp.presentation.viewmodels.ChatViewModel
 import com.example.aichatbotapp.R
+import com.example.aichatbotapp.presentation.screens.screen_components.Bottom_Input
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -61,6 +66,22 @@ fun Chat_screen( viewModel: ChatViewModel){
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
+                navigationIcon = {
+                    IconButton(
+                        onClick = {
+                            //history_button
+
+                        }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Menu,
+                            contentDescription = "drawer_button",
+                            modifier = Modifier
+                                .height(25.dp)
+                            //.background(Color.LightGray)
+                        )
+                    }
+                },
                 title = { Text(text = "AI",
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 2.sp
@@ -118,41 +139,45 @@ fun Chat_screen( viewModel: ChatViewModel){
                 }
                 
             }
-            //input field for user
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .padding(horizontal = 10.dp)
-                    .fillMaxWidth()
-            ) {
-                OutlinedTextField(
-                    value = prompt.value,
-                    onValueChange = {prompt.value = it},
-                    placeholder = {Text(text = "Prompt...")},
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(5.dp)
-                )
-                Button(
-                    onClick = {
-                        if (prompt.value.isNotEmpty()){
-                            onPromptSend()
-                        }
+            //input field for user here
 
-                    },
-                    shape = RoundedCornerShape(5.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Send,
-                        contentDescription = "Send_button",
-                        modifier = Modifier
-                            .height(42.dp)
-                    )
-                }
+//            Row(
+//                verticalAlignment = Alignment.CenterVertically,
+//                modifier = Modifier
+//                    .padding(horizontal = 10.dp)
+//                    .fillMaxWidth()
+//            ) {
+//                OutlinedTextField(
+//                    value = prompt.value,
+//                    onValueChange = {prompt.value = it},
+//                    placeholder = {Text(text = "Prompt...")},
+//                    modifier = Modifier
+//                        .weight(1f)
+//                        .padding(5.dp)
+//                )
+//                Button(
+//                    onClick = {
+//                        if (prompt.value.isNotEmpty()){
+//                            onPromptSend()
+//                        }
+//
+//                    },
+//                    shape = RoundedCornerShape(5.dp)
+//                ) {
+//                    Icon(
+//                        imageVector = Icons.Default.Send,
+//                        contentDescription = "Send_button",
+//                        modifier = Modifier
+//                            .height(42.dp)
+//                    )
+//                }
+//
+//
+//            }
+            Bottom_Input(prompt = prompt.value, onPromptChange = {prompt.value = it}, onSend = {onPromptSend()})
+            //space bottom of input field
+            Spacer(Modifier.height(10.dp))
 
-
-            }
-            Spacer(modifier = Modifier.height(10.dp))
 
 
         }
@@ -180,14 +205,16 @@ fun MessageItem(message: MessageModel) {
             ),
             shape = RoundedCornerShape(12.dp)
         ) {
-            Text(
-                text = message.message,
-                modifier = Modifier.padding(12.dp),
-                color = if (isUser)
-                    MaterialTheme.colorScheme.onPrimary
-                else
-                    MaterialTheme.colorScheme.onSurfaceVariant
-            )
+            SelectionContainer {
+                Text(
+                    text = message.message,
+                    modifier = Modifier.padding(12.dp),
+                    color = if (isUser)
+                        MaterialTheme.colorScheme.onPrimary
+                    else
+                        MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
         }
     }
 }
