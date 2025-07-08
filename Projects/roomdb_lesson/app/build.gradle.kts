@@ -42,7 +42,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -51,6 +50,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.runtime.livedata)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -59,23 +59,22 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    // Versions
-    val room_version = "2.6.1"
-    val hilt_version = "2.51"
+    // Room (Database)
+    implementation(libs.androidx.room.runtime)
+    kapt(libs.androidx.room.compiler)
 
-    dependencies {
-        // Room (Database)
-        implementation(libs.androidx.room.runtime)
-        kapt(libs.androidx.room.compiler)
+    // Room Kotlin Extensions and Coroutines support
+    implementation(libs.androidx.room.ktx)
 
-        // Optional - Room Kotlin Extensions and Coroutines support
-        implementation(libs.androidx.room.ktx)
+    // Dagger Hilt (Dependency Injection)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
 
-        // Optional - Room Paging 3 Integration (only if you use Paging)
-        implementation(libs.androidx.room.paging)
+    // For Hilt with Compose - using only one version
+    implementation(libs.androidx.hilt.navigation.compose.v110)
 
-        // Dagger Hilt (Dependency Injection)
-        implementation(libs.hilt.android)
-        kapt(libs.hilt.android.compiler)
-    }
+    // REMOVED: implementation(libs.androidx.hilt.lifecycle.viewmodel)
+
+    // Add this to your dependencies
+    implementation(libs.androidx.hilt.navigation.fragment)
 }

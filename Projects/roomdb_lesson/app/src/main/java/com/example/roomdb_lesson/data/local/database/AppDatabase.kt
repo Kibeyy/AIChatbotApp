@@ -1,6 +1,8 @@
 package com.example.roomdb_lesson.data.local.database
 
 import androidx.room.Database
+import androidx.room.RoomDatabase
+import com.example.roomdb_lesson.data.local.userDao.userDao
 import com.example.roomdb_lesson.data.local.userEntity.userEntity
 
 @Database(
@@ -8,5 +10,7 @@ import com.example.roomdb_lesson.data.local.userEntity.userEntity
     version = 1,
     exportSchema = true
 )
-class Database {
+abstract class AppDatabase:RoomDatabase() {
+    abstract val userDao:userDao
+
 }

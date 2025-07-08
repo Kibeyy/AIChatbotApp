@@ -18,6 +18,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.automirrored.filled.Notes
 import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.filled.Logout
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notes
@@ -133,7 +134,8 @@ fun Home(isDarkThemeOn:Boolean = false,onToggleTheme:() -> Unit){
                             onToggleTheme()
                         }
                     ) {
-                        Icon(Icons.Default.DarkMode, contentDescription = null)
+                        Icon( imageVector = if (isDarkThemeOn) Icons.Default.DarkMode else Icons.Default.LightMode,
+                        contentDescription = if (isDarkThemeOn) "Switch to light mode" else "Switch to dark mode")
                     }
                 }
             )

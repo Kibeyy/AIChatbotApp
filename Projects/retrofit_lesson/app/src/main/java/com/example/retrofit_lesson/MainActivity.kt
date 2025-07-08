@@ -113,6 +113,13 @@ fun HomeScreen() {
                 letterSpacing = 3.sp,
                 color = Color.Blue
             )
+            Text(
+                text = "(Tap on screen to get a cat fact)",
+                fontSize = 10.sp,
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 3.sp,
+                color = Color.Gray
+            )
             Spacer(Modifier.height(15.dp))
             Text(
                 text = fact.value,
